@@ -1,29 +1,19 @@
-package com.voldemarich.betonilogistics.app;
+package com.betonilogistics.app;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ListPopupWindow;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.view.View.OnTouchListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * Created by voldemarich on 18.3.2016.
  */
-public class SelectionActivity extends AppCompatActivity implements OnTouchListener,
-        OnItemClickListener {
+public class SelectionActivity extends AppCompatActivity{
 
 
-    String[] languages = { "C","C++","Java","C#","PHP","JavaScript","jQuery","AJAX","JSON" };;
+    String[] languages = { "C","C++","Java","C#","PHP","JavaScript","jQuery","AJAX","JSON" };
 
 //    private  EditText etTest;
 //    private ListPopupWindow lpw;
@@ -79,27 +69,6 @@ public class SelectionActivity extends AppCompatActivity implements OnTouchListe
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        String item = list[position];
-//        etTest.setText(item);
-//        lpw.dismiss();
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        final int DRAWABLE_RIGHT = 2;
-
-//        if (event.getAction() == MotionEvent.ACTION_UP) {
-//           // if (event.getX() >= (v.getWidth() - ((EditText) v)
-//             //       .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-//                lpw.show();
-//                return true;
-//            }
-//     //   }
-        return false;
     }
 
 

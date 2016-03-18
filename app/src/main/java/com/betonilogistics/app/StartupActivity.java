@@ -1,4 +1,4 @@
-package com.voldemarich.betonilogistics.app;
+package com.betonilogistics.app;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
