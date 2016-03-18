@@ -17,8 +17,7 @@ public class Util {
         lonf = fincoord.getLongitude();
         latp = point.getLatitude();
         lonp = point.getLongitude();
-        if(lats - latp <= 0 && latf - latp >= 0 && lons - lonp <= 0 && lonf - lonp >= 0) return true;
-        return false;
+        return lats - latp <= 0 && latf - latp >= 0 && lons - lonp <= 0 && lonf - lonp >= 0;
     }
 
 }

@@ -17,6 +17,8 @@
     <string name="hint_id">Enter ID</string>
     <string name="hint_pos">Enter location</string>
     <string name="call_map">Show map!</string>
+    <string name="gps_up">Gps risen!</string>
+    <string name="gps_down">Gps went up in flames!</string>
 
 
 
