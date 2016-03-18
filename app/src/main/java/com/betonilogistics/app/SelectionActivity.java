@@ -4,8 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.Toast;
+import com.betonilogistics.app.locationtools.FriendlyLocationListener;
+import com.betonilogistics.app.locationtools.Util;
 
 /**
  * Created by voldemarich on 18.3.2016.
@@ -19,6 +24,7 @@ public class SelectionActivity extends AppCompatActivity{
 //    private ListPopupWindow lpw;
 //    private String[] list;
 
+    FriendlyLocationListener fll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,19 @@ public class SelectionActivity extends AppCompatActivity{
 //        acTextView.setTextColor(Color.RED);
         //Set the adapter
         acTextView.setAdapter(adapter);
+        fll = new FriendlyLocationListener(this);
+        Button chkgps = (Button) findViewById(R.id.checker);
+        chkgps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    Util.isCoordInPredefArea()
+                }
+                catch (Exception e){
+                    Toast.makeText(SelectionActivity.this, "No gps connection", Toast.LENGTH_LONG);
+                }
+            }
+        });
 
     }
 
