@@ -13,7 +13,7 @@ import android.widget.AutoCompleteTextView;
 public class SelectionActivity extends AppCompatActivity{
 
 
-    String[] languages = { "C","C++","Java","C#","PHP","JavaScript","jQuery","AJAX","JSON" };
+    String[] languages = new String[20];//{ "A","C++","Java","C#","PHP","JavaScript","jQuery","AJAX","JSON" };
 
 //    private  EditText etTest;
 //    private ListPopupWindow lpw;
@@ -24,6 +24,18 @@ public class SelectionActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        for (int i = 0; i < 4; i++) {
+            languages[i] = "A"+i;
+            i = i * i +1;
+            languages[i] = "B"+i;
+            i = i * i +2;
+            languages[i] = "C"+i;
+            i = i * i +3;
+            languages[i] = "D"+i;
+        }
 
 //        etTest = (EditText) findViewById(R.id.input_id);
 //        etTest.setOnTouchListener(this);
