@@ -1,0 +1,36 @@
+<zones>
+    <rootzone>
+        <loc lat="61.666887" lon="27.290911"/>
+        <loc lat="61.668089" lon="27.291854"/>
+        <loc lat="61.668089" lon="27.291854"/>
+        <loc lat="61.667833" lon="27.292112"/>
+        <loc lat="61.666826" lon="27.291588"/>
+            </rootzone>
+    <zone name="a">
+            </zone>
+    <zone name="b">
+    </zone>
+    <zone name="c">
+    </zone>
+    <zone name="d">
+    </zone>
+    <zone name="e">
+    </zone>
+    <zone name="f">
+    </zone>
+    <zone name="g">
+    </zone>
+    <zone name="h">
+    </zone>
+    <zone name="i">
+    </zone>
+    <zone name="j">
+    </zone>
+    <zone name="k">
+    </zone>
+    <zone name="l">
+    </zone>
+    <zone name="m">
+    </zone>
+
+    </zones>

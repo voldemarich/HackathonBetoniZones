@@ -1,15 +1,14 @@
 package com.betonilogistics.app;
 
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.*;
 import com.betonilogistics.app.locationtools.FriendlyLocationListener;
+import com.betonilogistics.app.locationtools.LocationConstants;
 import com.betonilogistics.app.locationtools.Util;
 
 /**
@@ -52,15 +51,25 @@ public class SelectionActivity extends AppCompatActivity{
         //Set the adapter
         acTextView.setAdapter(adapter);
         fll = new FriendlyLocationListener(this);
+        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600, 3, fll);
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 3, fll);
         Button chkgps = (Button) findViewById(R.id.checker);
         chkgps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
-                    Util.isCoordInPredefArea()
+                    String a;
+                    if(Util.isCoordInPredefArea(LocationConstants.getPredefCoordinates(), fll.getMyposition())){
+                        a = "GOT TO THE AREA!!!";
+                    }
+                    else {
+                        a = "DIDNT GET TO THE AREA!!!";
+                    }
+                    Toast.makeText(SelectionActivity.this, a, Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e){
-                    Toast.makeText(SelectionActivity.this, "No gps connection", Toast.LENGTH_LONG);
+                    Toast.makeText(SelectionActivity.this, "No gps connection", Toast.LENGTH_LONG).show();
                 }
             }
         });
