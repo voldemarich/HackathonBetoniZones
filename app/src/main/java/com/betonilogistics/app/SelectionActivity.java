@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -19,15 +20,17 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.betonilogistics.app.locationtools.Coordinate;
 import com.betonilogistics.app.locationtools.FriendlyLocationListener;
-import com.betonilogistics.app.locationtools.*;
+import com.betonilogistics.app.locationtools.LocationsXmlParser;
+import com.betonilogistics.app.locationtools.Util;
+import com.betonilogistics.app.locationtools.Zone;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 /**
  * Created by voldemarich on 18.3.2016.
@@ -105,29 +108,26 @@ public class SelectionActivity extends AppCompatActivity{
         try {
             LocationsXmlParser lxp = new LocationsXmlParser(getAssets().open("zones.xml"));
             rootzone = lxp.getRootZone();
-            for (Coordinate c: rootzone.getFrame()){
-            }
             arz = lxp.getStorageZones();
         chkgps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
-                    String a;
                     Location loc = fll.getMyposition();
                     Coordinate c = new Coordinate(loc.getLatitude(), loc.getLongitude());
-                    if(rootzone.cointains(c)){
-                        a = "GOT TO THE AREA!!!";
+                    if(!rootzone.cointains(c)){
+                        String a = "You're";
+                        Toast.makeText(SelectionActivity.this, a, Toast.LENGTH_LONG).show();
                     }
                     else {
-                        a = "DIDNT GET TO THE AREA!!!";
+                        FragmentManager manager = getSupportFragmentManager();
+
+                        ListQueryFragment dialog = new ListQueryFragment();
+                        Bundle args = new Bundle();
+                        args.putStringArray("zones", Util.getZonesByLocation(arz, loc));
+                        dialog.setArguments(args);
+                        dialog.show(manager, "All items");
                     }
-                    a+=" and zone: ";
-                    for(Zone z : arz){
-                        if(z.cointains(c)){
-                            a+=" "+z.getName();
-                        }
-                    }
-                    Toast.makeText(SelectionActivity.this, a, Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e){
                     Toast.makeText(SelectionActivity.this, "No gps connection", Toast.LENGTH_LONG).show();
