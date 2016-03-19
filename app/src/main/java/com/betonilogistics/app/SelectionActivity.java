@@ -10,7 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.betonilogistics.app.locationtools.FriendlyLocationListener;
 
 import java.io.ByteArrayOutputStream;
@@ -39,6 +45,7 @@ public class SelectionActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_selection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
@@ -103,6 +110,10 @@ public class SelectionActivity extends AppCompatActivity{
 
     private void onLocationSearch() {
         getSupportActionBar().setTitle("Searching location...");
+        // Turn it on
+        setProgressBarIndeterminateVisibility(true);
+        // And when you want to turn it off
+        //setProgressBarIndeterminateVisibility(false);
 
     }
 
