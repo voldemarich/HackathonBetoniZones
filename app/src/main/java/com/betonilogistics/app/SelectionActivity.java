@@ -1,6 +1,7 @@
 package com.betonilogistics.app;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import com.betonilogistics.app.locationtools.Coordinate;
 import com.betonilogistics.app.locationtools.FriendlyLocationListener;
 import com.betonilogistics.app.locationtools.LocationsXmlParser;
+import com.betonilogistics.app.locationtools.MapsActivity;
 import com.betonilogistics.app.locationtools.Util;
 import com.betonilogistics.app.locationtools.Zone;
 
@@ -37,7 +40,7 @@ import java.util.Arrays;
 public class SelectionActivity extends AppCompatActivity{
 
 
-    String[] languages = new String[20];//{ "A","C++","Java","C#","PHP","JavaScript","jQuery","AJAX","JSON" };
+    String[] languages = new String[20];
     AutoCompleteTextView acTextView;
     EditText idEditView;
     TextInputLayout idInput;
@@ -45,9 +48,6 @@ public class SelectionActivity extends AppCompatActivity{
     Zone rootzone;
     ArrayList<Zone> arz;
 
-//    private  EditText etTest;
-//    private ListPopupWindow lpw;
-//    private String[] list;
 
     FriendlyLocationListener fll;
 
@@ -76,17 +76,6 @@ public class SelectionActivity extends AppCompatActivity{
 
         languages = readTxt();
 
-//        etTest = (EditText) findViewById(R.id.input_id);
-//        etTest.setOnTouchListener(this);
-//
-//        list = new String[] { "item1", "item2", "item3", "item4" };
-//        lpw = new ListPopupWindow(this);
-//        lpw.setAdapter(new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, list));
-//        lpw.setAnchorView(etTest);
-//        lpw.setModal(true);
-//        lpw.setOnItemClickListener(this);
-
         //Create Array Adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, languages);
         //Find TextView control
@@ -96,6 +85,15 @@ public class SelectionActivity extends AppCompatActivity{
 //        acTextView.setTextColor(Color.RED);
         //Set the adapter
         acTextView.setAdapter(adapter);
+
+        Button btnMap = (Button) findViewById(R.id.buttonmap);
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectionActivity.this, MapsActivity.class);
+                startActivityForResult(intent, 1, null);
+            }
+        });
 
 
         fll = new FriendlyLocationListener(this);
