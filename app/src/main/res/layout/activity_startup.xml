@@ -24,27 +24,26 @@
         android:showDividers="middle"
         android:weightSum="1">
 
-
-
         <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/input"
-            android:id="@+id/button"
-            android:padding="16dp"
             android:layout_weight="1"
-            android:textSize="20sp" />
-
+            android:padding="16dp"
+            android:text="@string/input"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/get"
-                android:id="@+id/button2"
-                android:padding="16dp"
-                android:layout_weight="1"
-            android:textSize="20sp" />
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:text="@string/get"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
 

@@ -24,6 +24,14 @@ public class StartupActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartupActivity.this, QueryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
