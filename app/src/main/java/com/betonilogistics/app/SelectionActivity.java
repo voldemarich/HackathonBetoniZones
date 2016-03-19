@@ -93,6 +93,7 @@ public class SelectionActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_done) {
+            boolean cancel = false;
             // Reset errors.
             acTextView.setError(null);
             idEditView.setError(null);
@@ -102,15 +103,22 @@ public class SelectionActivity extends AppCompatActivity{
             if(!isPositionValid()) {
                 acTextView.setError(getString(R.string.error));
                 posInput.setError(getString(R.string.error));
-                return true;
+                cancel = true;
             }
+            if(!isIdValid()) {
+                idEditView.setError(getString(R.string.error));
+                idInput.setError(getString(R.string.error));
+                cancel = true;
+            }
+            if(cancel) return true;
+
             new AlertDialog.Builder(this)
                     .setTitle("Entry save")
-                    .setMessage("Item will be registered in zone "+acTextView.getText())
+                    .setMessage("Item with ID "+idEditView.getText()+" will be registered in zone "+acTextView.getText())
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with save
-                            Toast.makeText(getBaseContext(), "Item is registered in zone "+acTextView.getText(),
+                            Toast.makeText(getBaseContext(), "Item "+idEditView.getText()+"is registered in zone "+acTextView.getText(),
                                     Toast.LENGTH_SHORT).show();
                             finish();
                         }
@@ -129,7 +137,8 @@ public class SelectionActivity extends AppCompatActivity{
     }
 
     private boolean isIdValid() {
-
+        if(idEditView.getText()!= null || idEditView.getText().toString().isEmpty())
+            return  false;
         return  true;
     }
 
