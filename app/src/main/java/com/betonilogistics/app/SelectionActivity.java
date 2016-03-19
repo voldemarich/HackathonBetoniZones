@@ -1,13 +1,17 @@
 package com.betonilogistics.app;
 
+import android.content.DialogInterface;
+import android.content.res.AssetManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.view.View;
+import android.widget.*;
+import com.betonilogistics.app.locationtools.FriendlyLocationListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
