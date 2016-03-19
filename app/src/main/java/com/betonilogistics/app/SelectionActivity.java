@@ -2,6 +2,7 @@ package com.betonilogistics.app;
 
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -18,10 +19,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.betonilogistics.app.locationtools.FriendlyLocationListener;
+import com.betonilogistics.app.locationtools.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -35,6 +38,8 @@ public class SelectionActivity extends AppCompatActivity{
     EditText idEditView;
     TextInputLayout idInput;
     TextInputLayout posInput;
+    Zone rootzone;
+    ArrayList<Zone> arz;
 
 //    private  EditText etTest;
 //    private ListPopupWindow lpw;
@@ -81,23 +86,37 @@ public class SelectionActivity extends AppCompatActivity{
 //        acTextView.setTextColor(Color.RED);
         //Set the adapter
         acTextView.setAdapter(adapter);
+
+
         fll = new FriendlyLocationListener(this);
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600, 3, fll);
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 3, fll);
+        onLocationSearch();
         Button chkgps = (Button) findViewById(R.id.checker);
-
+        try {
+            LocationsXmlParser lxp = new LocationsXmlParser(getAssets().open("zones.xml"));
+            rootzone = lxp.getRootZone();
+            arz = lxp.getStorageZones();
         chkgps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
-                    String a = "1";
-//                    if(Util.isCoordInPredefArea(LocationConstants.getPredefCoordinates(), fll.getMyposition())){
-//                        a = "GOT TO THE AREA!!!";
-//                    }
-//                    else {
-//                        a = "DIDNT GET TO THE AREA!!!";
-//                    }
+                    String a;
+                    Location loc = fll.getMyposition();
+                    Coordinate c = new Coordinate(loc.getLatitude(), loc.getLongitude());
+                    if(rootzone.cointains(c)){
+                        a = "GOT TO THE AREA!!!";
+                    }
+                    else {
+                        a = "DIDNT GET TO THE AREA!!!";
+                    }
+                    a+=" and zone: ";
+                    for(Zone z : arz){
+                        if(z.cointains(c)){
+                            a+=" "+z.getName();
+                        }
+                    }
                     Toast.makeText(SelectionActivity.this, a, Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e){
@@ -105,6 +124,13 @@ public class SelectionActivity extends AppCompatActivity{
                 }
             }
         });
+        }
+        catch (Exception e){
+            Toast.makeText(this, "Smth wrong with xml with locations...", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+
 
     }
 
@@ -211,6 +237,7 @@ public class SelectionActivity extends AppCompatActivity{
 
         return byteArrayOutputStream.toString().split(",");
     }
+
 
 
 

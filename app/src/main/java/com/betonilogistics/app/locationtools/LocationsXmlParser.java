@@ -1,5 +1,6 @@
 package com.betonilogistics.app.locationtools;
 
+import android.util.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -11,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -52,10 +54,13 @@ public class LocationsXmlParser {
 ////                llc.add(new Coordinate(Double.parseDouble(el.getAttribute("lat")), Double.parseDouble(el.getAttribute("lon"))));
 //                String locs = el.getTextContent();
 //            }
-        String locs = e.getNodeValue();
-        String[] coords = locs.split("/([0-9]+\\.[0-9]+)[,]([0-9]+\\.[0-9]+)/");
+        String locs = e.getTextContent();
+        System.out.println("COORDS READ " + locs);
+        String[] coords = locs.split(";");
+        System.out.println("ARRAY: "+Arrays.toString(coords));
         for (String s : coords){
-            String[] onerange = s.split("([0-9]+\\.[0-9]+)");
+            String[] onerange = s.split(",");
+            System.out.println("SPLITTED: "+ Arrays.toString(onerange));
             if(onerange.length > 1){
                 llc.add(new Coordinate(Double.parseDouble(onerange[0]), Double.parseDouble(onerange[1])));
             }
@@ -77,7 +82,7 @@ public class LocationsXmlParser {
         return new Zone("rootzone", llc);
     }
 
-    public ArrayList<Zone> getSorageZones() throws IOException, NumberFormatException {
+    public ArrayList<Zone> getStorageZones() throws IOException, NumberFormatException {
         Element rootelem = rootXml.getDocumentElement();
         NodeList nl = rootelem.getElementsByTagName("zone");
         ArrayList<Zone> alz = new ArrayList<Zone>();
