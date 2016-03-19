@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Betoni Logistics</string>
+    <string name="activity_location">Item Location</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_done">Done</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="error">Entry is not valid</string>
 
     <color name="primary">#673ab7</color>
     <color name="primary_dark">#512da8</color>
@@ -19,6 +21,7 @@
     <string name="hint_id">Enter ID</string>
     <string name="hint_pos">Enter location</string>
     <string name="call_map">Show map!</string>
+    <string name="show_all">Show all</string>
     <string name="gps_up">Gps risen!</string>
     <string name="gps_down">Gps went up in flames!</string>
 

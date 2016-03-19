@@ -1,11 +1,13 @@
 package com.betonilogistics.app;
 
+
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by hackaton on 19.3.2016.
@@ -20,6 +22,18 @@ public class QueryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
+        Button btnShowAll = (Button) findViewById(R.id.buttonAll);
+        btnShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager manager = getSupportFragmentManager();
+
+                ListQueryFragment dialog = new ListQueryFragment();
+                dialog.show(manager, "All items");
+
+            }
+        });
 
     }
 

@@ -3,21 +3,20 @@ package com.betonilogistics.app;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Created by voldemarich on 18.3.2016.
@@ -27,6 +26,9 @@ public class SelectionActivity extends AppCompatActivity{
 
     String[] languages = new String[20];//{ "A","C++","Java","C#","PHP","JavaScript","jQuery","AJAX","JSON" };
     AutoCompleteTextView acTextView;
+    EditText idEditView;
+    TextInputLayout idInput;
+    TextInputLayout posInput;
 
 //    private  EditText etTest;
 //    private ListPopupWindow lpw;
@@ -39,6 +41,15 @@ public class SelectionActivity extends AppCompatActivity{
         setContentView(R.layout.activity_selection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        idEditView = (EditText) findViewById(R.id.input_id);
+
+        idInput = (TextInputLayout) findViewById(R.id.input_layout_id);
+        idInput.setErrorEnabled(true);
+        //idInput.setError(getString(R.string.error));
+        posInput = (TextInputLayout) findViewById(R.id.input_layout_position);
+        posInput.setErrorEnabled(true);
+        //posInput.setError(getString(R.string.error));
 
         languages = readTxt();
 
@@ -82,6 +93,17 @@ public class SelectionActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_done) {
+            // Reset errors.
+            acTextView.setError(null);
+            idEditView.setError(null);
+            posInput.setError(null);
+            idInput.setError(null);
+
+            if(!isPositionValid()) {
+                acTextView.setError(getString(R.string.error));
+                posInput.setError(getString(R.string.error));
+                return true;
+            }
             new AlertDialog.Builder(this)
                     .setTitle("Entry save")
                     .setMessage("Item will be registered in zone "+acTextView.getText())
@@ -90,6 +112,7 @@ public class SelectionActivity extends AppCompatActivity{
                             // continue with save
                             Toast.makeText(getBaseContext(), "Item is registered in zone "+acTextView.getText(),
                                     Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     })
                     .setNeutralButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -103,6 +126,15 @@ public class SelectionActivity extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isIdValid() {
+
+        return  true;
+    }
+
+    private boolean isPositionValid() {
+        return Arrays.asList(languages).contains(acTextView.getText().toString().toUpperCase());
     }
 
     private String[] readTxt() {
