@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.betonilogistics.app.locationtools.FriendlyLocationListener;
@@ -54,6 +55,12 @@ public class SelectionActivity extends AppCompatActivity{
         setContentView(R.layout.activity_selection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        ProgressBar progressBar = new ProgressBar(this);
+        progressBar.setVisibility(View.GONE);
+        progressBar.setIndeterminate(true);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(progressBar);
 
         idEditView = (EditText) findViewById(R.id.input_id);
 
@@ -134,10 +141,15 @@ public class SelectionActivity extends AppCompatActivity{
 
     }
 
+    @Override
+    public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
+        getSupportActionBar().getCustomView().setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
     private void onLocationSearch() {
         getSupportActionBar().setTitle("Searching location...");
         // Turn it on
-        setProgressBarIndeterminateVisibility(true);
+        setSupportProgressBarIndeterminateVisibility(true);
         // And when you want to turn it off
         //setProgressBarIndeterminateVisibility(false);
 
