@@ -2,6 +2,7 @@ package com.betonilogistics.app.locationtools;
 
 import android.location.Location;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -28,7 +29,7 @@ public class Util {
     }
 
 
-    public static boolean isCoordInPredefArea(LinkedList<Coordinate> listcoords, Coordinate pnt){
+     static boolean isCoordInPredefArea(LinkedList<Coordinate> listcoords, Coordinate pnt){
         if(listcoords.size()<3) return false;
         Iterator<Coordinate> iter = listcoords.iterator();
         boolean result = false;
@@ -41,6 +42,17 @@ public class Util {
         }
         while (iter.hasNext());
         return result;
+    }
+
+    public static String[] getZonesByLocation(ArrayList<Zone> alz, Location location){
+        Coordinate c = new Coordinate(location.getLatitude(),location.getLongitude());
+        LinkedList<String> ls = new LinkedList<String>();
+        for (Zone a : alz){
+            if(a.cointains(c)){
+                ls.add(a.getName());
+            }
+        }
+        return (String[])ls.toArray();
     }
 
 }

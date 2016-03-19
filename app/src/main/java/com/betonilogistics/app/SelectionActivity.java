@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * Created by voldemarich on 18.3.2016.
@@ -104,6 +105,8 @@ public class SelectionActivity extends AppCompatActivity{
         try {
             LocationsXmlParser lxp = new LocationsXmlParser(getAssets().open("zones.xml"));
             rootzone = lxp.getRootZone();
+            for (Coordinate c: rootzone.getFrame()){
+            }
             arz = lxp.getStorageZones();
         chkgps.setOnClickListener(new View.OnClickListener() {
             @Override

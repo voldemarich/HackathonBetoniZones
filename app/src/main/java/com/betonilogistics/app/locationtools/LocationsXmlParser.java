@@ -55,14 +55,11 @@ public class LocationsXmlParser {
 //                String locs = el.getTextContent();
 //            }
         String locs = e.getTextContent();
-        System.out.println("COORDS READ " + locs);
         String[] coords = locs.split(";");
-        System.out.println("ARRAY: "+Arrays.toString(coords));
         for (String s : coords){
             String[] onerange = s.split(",");
-            System.out.println("SPLITTED: "+ Arrays.toString(onerange));
             if(onerange.length > 1){
-                llc.add(new Coordinate(Double.parseDouble(onerange[0]), Double.parseDouble(onerange[1])));
+                llc.add(new Coordinate(Double.parseDouble(onerange[1]), Double.parseDouble(onerange[0])));
             }
         }
             return llc;
