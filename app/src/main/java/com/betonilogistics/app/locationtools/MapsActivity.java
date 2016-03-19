@@ -1,21 +1,27 @@
 package com.betonilogistics.app.locationtools;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import android.widget.Toast;
 import com.betonilogistics.app.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
+    private LinkedList<PolygonOptions> listpoly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
     }
 
 
@@ -47,5 +55,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         mMap.moveCamera(cameraUpdate);
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        try {
+            listpoly = new LinkedList<PolygonOptions>();
+            LocationsXmlParser lxp = new LocationsXmlParser(getAssets().open("zones.xml"));
+            ArrayList<Zone> alz = lxp.getStorageZones();
+            for (Zone z : alz){
+                PolygonOptions p = new PolygonOptions();
+                for(Coordinate c : z.getFrame()){
+                    p.add(new LatLng(c.x, c.y));
+                }
+                p.strokeColor(Color.RED);
+                p.fillColor(0x1000FF00);
+                listpoly.add(p);
+            }
+
+            for(PolygonOptions po : listpoly) {
+                googleMap.addPolygon(po);
+            }
+        } catch (IOException e) {
+            Toast.makeText(this, "Fail zones file", Toast.LENGTH_LONG).show();
+        }
+
     }
 }
