@@ -1,7 +1,5 @@
 package com.betonilogistics.app;
 
-import android.content.DialogInterface;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
@@ -10,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -34,6 +30,7 @@ public class SelectionActivity extends AppCompatActivity{
 //    private ListPopupWindow lpw;
 //    private String[] list;
 
+    FriendlyLocationListener fll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +70,30 @@ public class SelectionActivity extends AppCompatActivity{
 //        acTextView.setTextColor(Color.RED);
         //Set the adapter
         acTextView.setAdapter(adapter);
+        fll = new FriendlyLocationListener(this);
+        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600, 3, fll);
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 3, fll);
+        Button chkgps = (Button) findViewById(R.id.checker);
+
+        chkgps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    String a = "1";
+//                    if(Util.isCoordInPredefArea(LocationConstants.getPredefCoordinates(), fll.getMyposition())){
+//                        a = "GOT TO THE AREA!!!";
+//                    }
+//                    else {
+//                        a = "DIDNT GET TO THE AREA!!!";
+//                    }
+                    Toast.makeText(SelectionActivity.this, a, Toast.LENGTH_LONG).show();
+                }
+                catch (Exception e){
+                    Toast.makeText(SelectionActivity.this, "No gps connection", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 
