@@ -42,7 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         LatLng latlng = new LatLng(61.6674358, 27.2913909);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Betoni"));
+        mMap.addMarker(new MarkerOptions().position(latlng).title("Betoni"));
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(14.0f).build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         mMap.moveCamera(cameraUpdate);
