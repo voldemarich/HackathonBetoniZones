@@ -101,6 +101,11 @@ public class SelectionActivity extends AppCompatActivity{
 
     }
 
+    private void onLocationSearch() {
+        getSupportActionBar().setTitle("Searching location...");
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,7 +167,7 @@ public class SelectionActivity extends AppCompatActivity{
     }
 
     private boolean isIdValid() {
-        if(idEditView.getText()!= null || idEditView.getText().toString().isEmpty())
+        if(idEditView.getText() == null || idEditView.getText().toString().isEmpty())
             return  false;
         return  true;
     }

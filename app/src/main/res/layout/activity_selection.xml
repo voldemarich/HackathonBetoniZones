@@ -67,10 +67,5 @@
                 android:text="checkpos"
                 android:id="@+id/checker"/>
 
-        <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/loglist"/>
-
     </LinearLayout>
 </FrameLayout>
