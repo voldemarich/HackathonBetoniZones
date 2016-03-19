@@ -99,7 +99,7 @@ public class SelectionActivity extends AppCompatActivity{
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600, 3, fll);
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 3, fll);
-        onLocationSearch();
+        onLocationSearch(true);
         Button chkgps = (Button) findViewById(R.id.checker);
         try {
             LocationsXmlParser lxp = new LocationsXmlParser(getAssets().open("zones.xml"));
@@ -146,12 +146,12 @@ public class SelectionActivity extends AppCompatActivity{
         getSupportActionBar().getCustomView().setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
-    private void onLocationSearch() {
-        getSupportActionBar().setTitle("Searching location...");
-        // Turn it on
-        setSupportProgressBarIndeterminateVisibility(true);
-        // And when you want to turn it off
-        //setProgressBarIndeterminateVisibility(false);
+    private void onLocationSearch(boolean isSearching) {
+        if(isSearching)
+            getSupportActionBar().setTitle("Searching location...");
+        else getSupportActionBar().setTitle(R.string.activity_location);
+        // Turn it on or off
+        setSupportProgressBarIndeterminateVisibility(isSearching);
 
     }
 
