@@ -44,16 +44,25 @@ public class LocationsXmlParser {
     }
 
     private LinkedList<Coordinate> readCoordListFromElem(Element e) throws IOException, NumberFormatException{
-        NodeList points = e.getElementsByTagName("loc");
+        //NodeList points = e.getElementsByTagName("loc");
         LinkedList<Coordinate> llc = new LinkedList<Coordinate>();
-        if (points != null && points.getLength() > 0) {
-            for (int i = 0; i < points.getLength(); i++) {
-                Element el = (Element) points.item(i);
-                llc.add(new Coordinate(Double.parseDouble(el.getAttribute("lat")), Double.parseDouble(el.getAttribute("lon"))));
+//        if (points != null && points.getLength() > 0) {
+//            for (int i = 0; i < points.getLength(); i++) {
+//                Element el = (Element) points.item(i);
+////                llc.add(new Coordinate(Double.parseDouble(el.getAttribute("lat")), Double.parseDouble(el.getAttribute("lon"))));
+//                String locs = el.getTextContent();
+//            }
+        String locs = e.getNodeValue();
+        String[] coords = locs.split("/([0-9]+\\.[0-9]+)[,]([0-9]+\\.[0-9]+)/");
+        for (String s : coords){
+            String[] onerange = s.split("([0-9]+\\.[0-9]+)");
+            if(onerange.length > 1){
+                llc.add(new Coordinate(Double.parseDouble(onerange[0]), Double.parseDouble(onerange[1])));
             }
-            return llc;
         }
-        else throw new IOException();
+            return llc;
+        //}
+        //else throw new IOException();
     }
 
     public Zone getRootZone() throws IOException, NumberFormatException {

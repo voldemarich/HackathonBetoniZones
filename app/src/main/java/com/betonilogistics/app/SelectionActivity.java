@@ -1,5 +1,6 @@
 package com.betonilogistics.app;
 
+import android.content.res.AssetManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.betonilogistics.app.locationtools.FriendlyLocationListener;
-import com.betonilogistics.app.locationtools.LocationConstants;
 import com.betonilogistics.app.locationtools.Util;
 
 /**
@@ -55,17 +55,18 @@ public class SelectionActivity extends AppCompatActivity{
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600, 3, fll);
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 3, fll);
         Button chkgps = (Button) findViewById(R.id.checker);
+
         chkgps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
-                    String a;
-                    if(Util.isCoordInPredefArea(LocationConstants.getPredefCoordinates(), fll.getMyposition())){
-                        a = "GOT TO THE AREA!!!";
-                    }
-                    else {
-                        a = "DIDNT GET TO THE AREA!!!";
-                    }
+                    String a = "1";
+//                    if(Util.isCoordInPredefArea(LocationConstants.getPredefCoordinates(), fll.getMyposition())){
+//                        a = "GOT TO THE AREA!!!";
+//                    }
+//                    else {
+//                        a = "DIDNT GET TO THE AREA!!!";
+//                    }
                     Toast.makeText(SelectionActivity.this, a, Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e){
