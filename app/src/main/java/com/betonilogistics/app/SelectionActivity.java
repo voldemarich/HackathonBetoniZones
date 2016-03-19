@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -104,41 +103,7 @@ public class SelectionActivity extends AppCompatActivity{
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 600, 3, fll);
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 3, fll);
         onLocationSearch(true);
-        Button chkgps = (Button) findViewById(R.id.checker);
-        try {
-            LocationsXmlParser lxp = new LocationsXmlParser(getAssets().open("zones.xml"));
-            rootzone = lxp.getRootZone();
-            arz = lxp.getStorageZones();
-        chkgps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try{
-                    Location loc = fll.getMyposition();
-                    Coordinate c = new Coordinate(loc.getLatitude(), loc.getLongitude());
-                    if(!rootzone.cointains(c)){
-                        String a = "You're";
-                        Toast.makeText(SelectionActivity.this, a, Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        FragmentManager manager = getSupportFragmentManager();
 
-                        ListQueryFragment dialog = new ListQueryFragment();
-                        Bundle args = new Bundle();
-                        args.putStringArray("zones", Util.getZonesByLocation(arz, loc));
-                        dialog.setArguments(args);
-                        dialog.show(manager, "All items");
-                    }
-                }
-                catch (Exception e){
-                    Toast.makeText(SelectionActivity.this, "No gps connection", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        }
-        catch (Exception e){
-            Toast.makeText(this, "Smth wrong with xml with locations...", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
 
 
 
@@ -175,6 +140,8 @@ public class SelectionActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_done) {
+
+            checkLocation();
             boolean cancel = false;
             // Reset errors.
             acTextView.setError(null);
@@ -254,6 +221,37 @@ public class SelectionActivity extends AppCompatActivity{
     }
 
 
+    private void checkLocation() {
+        try {
+            LocationsXmlParser lxp = new LocationsXmlParser(getAssets().open("zones.xml"));
+            rootzone = lxp.getRootZone();
+            arz = lxp.getStorageZones();
+                    try{
+                        Location loc = fll.getMyposition();
+                        Coordinate c = new Coordinate(loc.getLatitude(), loc.getLongitude());
+                        if(!rootzone.cointains(c)){
+                            String a = "You're";
+                            Toast.makeText(SelectionActivity.this, a, Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            FragmentManager manager = getSupportFragmentManager();
+
+                            ListQueryFragment dialog = new ListQueryFragment();
+                            Bundle args = new Bundle();
+                            args.putStringArray("zones", Util.getZonesByLocation(arz, loc));
+                            dialog.setArguments(args);
+                            dialog.show(manager, "All items");
+                        }
+                    }
+                    catch (Exception e){
+                        Toast.makeText(SelectionActivity.this, "No gps connection", Toast.LENGTH_LONG).show();
+                    }
+        }
+        catch (Exception e){
+            Toast.makeText(this, "Smth wrong with xml with locations...", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
 
 
 }

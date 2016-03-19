@@ -27,6 +27,10 @@
             android:name=".QueryActivity"
             android:label="@string/activity_location"
             android:parentActivityName=".StartupActivity"></activity>
+        <activity
+            android:name=".locationtools.MapsActivity"
+            android:label="@string/activity_location"
+            android:parentActivityName=".SelectionActivity"></activity>
 
     </application>
 
